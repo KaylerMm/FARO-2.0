@@ -9,7 +9,7 @@
 
 <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
     <div class="container">
-        <a class="navbar-brand" href="#">🐾 FARO</a>
+        <a class="navbar-brand" href="/accounts/dashboard">🐾 FARO</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -23,9 +23,9 @@
                             👤 {{ request.user.username }}
                         </a>
                         <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
-                            <li><a class="dropdown-item" href="#">Perfil</a></li>
+                            <li><a class="dropdown-item" href="{% url 'profile' %}">Profile</a></li>
                             <li><hr class="dropdown-divider"></li>
-                            <li><a class="dropdown-item text-danger" href="{% url 'logout' %}">Sair</a></li>
+                            <li><a class="dropdown-item text-danger" href="{% url 'logout' %}">Logout</a></li>
                         </ul>
                     </li>
                 </ul>
