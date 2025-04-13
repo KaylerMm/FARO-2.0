@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'accounts',  # Custom app for user accounts
+    'customers',  # Custom app for customer management
 ]
 
 MIDDLEWARE = [
