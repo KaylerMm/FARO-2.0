@@ -9,6 +9,7 @@
         <p><strong>Username:</strong> {{ request.user.username }}</p>
         <p><strong>Email:</strong> {{ request.user.email }}</p>
         <p><strong>Name:</strong> {{ request.user.get_full_name }}</p>
+        <a href="{% url 'edit_profile' %}" class="btn btn-outline-primary mt-3">Edit Pofile</a>
     </div>
 </div>
 {% endblock %}
