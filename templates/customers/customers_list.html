@@ -1,0 +1,65 @@
+{% extends 'base.html' %}
+{% block title %}Customer List{% endblock %}
+
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h1 class="h3">🐶 Customer List</h1>
+    <a href="{% url 'create_customer' %}" class="btn btn-success">+ Add Customer</a>
+</div>
+
+<table class="table table-striped table-hover shadow-sm">
+    <thead class="table-primary">
+        <tr>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Phone</th>
+            <th>Alt. Phone</th>
+            <th>Address</th>
+            <th>Birth Date</th>
+            <th>Member Since</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for customer in customers %}
+        <tr>
+            <td>{{ customer.name }}</td>
+            <td>{{ customer.email }}</td>
+            <td>{{ customer.phone }}</td>
+            <td>{{ customer.phone_2 }}</td>
+            <td>{{ customer.address }}</td>
+            <td>{{ customer.birth_date }}</td>
+            <td>{{ customer.registration_date|date:"d/m/Y" }}</td>
+            <td>
+                <a href="{% url 'edit_customer' customer.id %}" class="btn btn-sm btn-warning">
+                    <i class="fas fa-edit"></i> Edit
+                </a>
+                <button class="btn btn-sm btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal{{ customer.id }}">
+                    <i class="fas fa-trash-alt"></i> Delete
+                </button>
+                <div class="modal fade" id="deleteModal{{ customer.id }}" tabindex="-1" aria-labelledby="deleteModalLabel{{ customer.id }}" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="deleteModalLabel{{ customer.id }}">Delete Customer</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                Are you sure you want to delete the customer "{{ customer.name }}"?
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                                <form method="post" action="{% url 'delete_customer' customer.id %}">
+                                    {% csrf_token %}
+                                    <button type="submit" class="btn btn-danger">Yes, Delete</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}
