@@ -43,3 +43,7 @@ def edit_customer(request, pk):
 
     return render(request, 'customers/edit_customer.html', {'form': form, 'customer': customer})
 
+@login_required
+def customer_detail(request, pk):
+    customer = get_object_or_404(Customer, pk=pk)
+    return render(request, 'customers/customer_detail.html', {'customer': customer})
