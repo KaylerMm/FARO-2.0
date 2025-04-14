@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% block title %}Confirm Delete{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <div class="card shadow-sm">
+        <div class="card-header bg-danger text-white">
+            <h4 class="mb-0">❗ Confirm Delete</h4>
+        </div>
+        <div class="card-body">
+            <p>Are you sure you want to delete the pet <strong>{{ pet.name }}</strong>?</p>
+            <form method="POST">
+                {% csrf_token %}
+                <button type="submit" class="btn btn-danger">
+                    <i class="fas fa-trash"></i> Yes, Delete
+                </button>
+                <a href="{% url 'pet_list' %}" class="btn btn-secondary">
+                    <i class="fas fa-times"></i> Cancel
+                </a>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}
