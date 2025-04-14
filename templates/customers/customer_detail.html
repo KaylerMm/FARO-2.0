@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% block title %}Customer Detail{% endblock %}
+
+{% block content %}
+<div class="card shadow-sm">
+    <div class="card-header bg-info text-white">
+        <h5 class="mb-0">Customer: {{ customer.name }}</h5>
+    </div>
+    <div class="card-body">
+        <p><strong>Email:</strong> {{ customer.email }}</p>
+        <p><strong>Phone:</strong> {{ customer.phone }}</p>
+        <p><strong>Alt. Phone:</strong> {{ customer.phone_2 }}</p>
+        <p><strong>Address:</strong> {{ customer.address }}</p>
+        <p><strong>CPF:</strong> {{ customer.cpf }}</p>
+        <p><strong>Birth Date:</strong> {{ customer.birth_date }}</p>
+        <p><strong>Registered:</strong> {{ customer.registration_date|date:"d/m/Y" }}</p>
+        <a href="{% url 'edit_customer' customer.id %}" class="btn btn-warning">Edit</a>
+        <a href="{% url 'customers_list' %}" class="btn btn-secondary">Back</a>
+    </div>
+</div>
+{% endblock %}
