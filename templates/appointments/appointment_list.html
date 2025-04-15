@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<div class="container mt-5">
+    <h2 class="mb-4">Appointments</h2>
+    <a href="{% url 'appointments:appointment_create' %}" class="btn btn-success mb-3">
+        ➕ Nova Consulta
+    </a>
+    <table class="table table-striped table-hover align-middle">
+        <thead class="table-primary">
+            <tr>
+                <th>Pet</th>
+                <th>veterinarian</th>
+                <th>Date</th>
+                <th>Reason</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for appointment in appointments %}
+            <tr>
+                <td>{{ appointment.pet.name }}</td>
+                <td>{{ appointment.veterinarian.name }}</td>
+                <td>{{ appointment.date }}</td>
+                <td>{{ appointment.reason }}</td>
+                <td>
+                    <a href="{% url 'appointments:appointment_detail' appointment.pk %}" class="btn btn-info btn-sm">🔍</a>
+                    <a href="{% url 'appointments:appointment_update' appointment.pk %}" class="btn btn-warning btn-sm">✏️</a>
+                    <a href="{% url 'appointments:appointment_delete' appointment.pk %}" class="btn btn-danger btn-sm">🗑️</a>
+                </td>
+            </tr>
+            {% empty %}
+            <tr><td colspan="5">No appointment found</td></tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

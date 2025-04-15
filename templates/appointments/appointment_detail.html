@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container mt-5">
+    <h2>Appointment details</h2>
+    <ul class="list-group mt-4">
+        <li class="list-group-item"><strong>Pet:</strong> {{ appointment.pet.name }}</li>
+        <li class="list-group-item"><strong>Veterinarian:</strong> {{ appointment.veterinarian.name }}</li>
+        <li class="list-group-item"><strong>Date:</strong> {{ appointment.date }}</li>
+        <li class="list-group-item"><strong>Reason:</strong> {{ appointment.reason }}</li>
+    </ul>
+    <div class="mt-4">
+        <a href="{% url 'appointments:appointment_update' appointment.pk %}" class="btn btn-warning">✏️ Edit</a>
+        <a href="{% url 'appointments:appointment_delete' appointment.pk %}" class="btn btn-danger">🗑️ Delete</a>
+        <a href="{% url 'appointments:appointment_list' %}" class="btn btn-secondary">Go Back</a>
+    </div>
+</div>
+{% endblock %}
