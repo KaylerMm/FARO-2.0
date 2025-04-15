@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'customers',  # Custom app for customer management
     'pets',  # Custom app for pet management
     'veterinarians',  # Custom app for veterinarian management
+    'appointments',  # Custom app for appointments
 ]
 
 MIDDLEWARE = [
