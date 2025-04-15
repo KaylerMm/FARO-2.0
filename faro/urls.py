@@ -26,4 +26,5 @@ urlpatterns = [
     path('profile/edit/', login_required(views.edit_profile), name='edit_profile'),
     path('customers/', include('customers.urls')),
     path('pets/', include('pets.urls')),
+    path('veterinarians/', include('veterinarians.urls')),
 ]

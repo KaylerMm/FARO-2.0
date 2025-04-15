@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% block title %}Veterinarian Form{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <h1 class="h3">Veterinarian Form</h1>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="btn btn-success">Save</button>
+        <a href="{% url 'veterinarian_list' %}" class="btn btn-secondary">Cancel</a>
+    </form>
+</div>
+{% endblock %}
