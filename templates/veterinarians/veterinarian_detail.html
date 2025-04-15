@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+{% block title %}Detalhes do Veterinário{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <h1 class="h3">Detalhes do Veterinário</h1>
+    <div class="card shadow-sm">
+        <div class="card-body">
+            <h5 class="card-title">{{ veterinarian.name }}</h5>
+            <p class="card-text"><strong>Apelido:</strong> {{ veterinarian.nickname }}</p>
+            <p class="card-text"><strong>Data de Nascimento:</strong> {{ veterinarian.birth_date }}</p>
+            <p class="card-text"><strong>CPF:</strong> {{ veterinarian.cpf }}</p>
+            <p class="card-text"><strong>RG:</strong> {{ veterinarian.rg }}</p>
+            <p class="card-text"><strong>CRMV:</strong> {{ veterinarian.crmv }}</p>
+            <p class="card-text"><strong>Especialidade:</strong> {{ veterinarian.specialty }}</p>
+            <p class="card-text"><strong>Email:</strong> {{ veterinarian.email }}</p>
+            <p class="card-text"><strong>Telefone:</strong> {{ veterinarian.phone }}</p>
+            <p class="card-text"><strong>Telefone 2:</strong> {{ veterinarian.phone_2 }}</p>
+            <p class="card-text"><strong>Endereço:</strong> {{ veterinarian.address }}</p>
+            <p class="card-text"><strong>Data de Admissão:</strong> {{ veterinarian.admission_date }}</p>
+
+            <div class="mt-3">
+                <a href="{% url 'update_veterinarian' veterinarian.pk %}" class="btn btn-warning">Editar</a>
+                <a href="{% url 'delete_veterinarian' veterinarian.pk %}" class="btn btn-danger" onclick="return confirm('Tem certeza que deseja excluir este veterinário?')">Excluir</a>
+                <a href="{% url 'veterinarian_list' %}" class="btn btn-secondary">Voltar</a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

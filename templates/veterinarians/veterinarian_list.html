@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+{% block title %}Veterinarians{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <h1 class="h3">👨‍⚕️ Veterinarian List</h1>
+    <a href="{% url 'create_veterinarian' %}" class="btn btn-primary mb-3">+ Add Veterinarian</a>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Specialty</th>
+                <th>CRMV</th>
+                <th>Phone</th>
+                <th>Email</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for vet in vets %}
+            <tr>
+                <td>{{ vet.name }}</td>
+                <td>{{ vet.specialty }}</td>
+                <td>{{ vet.crmv }}</td>
+                <td>{{ vet.phone }}</td>
+                <td>{{ vet.email }}</td>
+                <td>
+                    <a href="{% url 'veterinarian_detail' vet.pk %}" class="btn btn-sm btn-info">Detalhes</a>
+                    <a href="{% url 'update_veterinarian' vet.pk %}" class="btn btn-sm btn-warning">Editar</a>
+                    <a href="{% url 'delete_veterinarian' vet.pk %}" class="btn btn-sm btn-danger">Excluir</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}
