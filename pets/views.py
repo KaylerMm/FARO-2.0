@@ -54,3 +54,10 @@ def confirm_delete_pet(request, id):
     
     return render(request, 'pets/confirm_delete_pet.html', {'pet': pet})
 
+@login_required
+
+def pet_detail(request, pk):
+    pet = get_object_or_404(Pet, pk=pk)
+    return render(request, 'pets/pet_detail.html', {'pet': pet})
+
+
