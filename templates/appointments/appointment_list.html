@@ -25,6 +25,11 @@
                 <td>{{ appointment.reason }}</td>
                 <td>
                     <a href="{% url 'appointments:appointment_detail' appointment.pk %}" class="btn btn-info btn-sm">🔍</a>
+                    {% if appointment.medical_record %}
+                    <a href="{% url 'appointments:view_medical_record' appointment.id %}" class="btn btn-info btn-sm">👁 Histórico</a>
+                    {% else %}
+                    <a href="{% url 'appointments:create_medical_record' appointment.id %}" class="btn btn-warning btn-sm">➕ Histórico</a>
+                    {% endif %}
                     <a href="{% url 'appointments:appointment_update' appointment.pk %}" class="btn btn-warning btn-sm">✏️</a>
                     <a href="{% url 'appointments:appointment_delete' appointment.pk %}" class="btn btn-danger btn-sm">🗑️</a>
                 </td>

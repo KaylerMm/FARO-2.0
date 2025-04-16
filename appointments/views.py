@@ -1,7 +1,9 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from .models import Appointment
+from .models import MedicalRecord
 from .forms import AppointmentForm
+from .forms import MedicalRecordForm
 from django.utils import timezone
 
 @login_required
@@ -57,3 +59,55 @@ def appointment_delete(request, pk):
         appointment.delete()
         return redirect('appointments:appointment_list')
     return render(request, 'appointments/appointment_confirm_delete.html', {'appointment': appointment})
+
+@login_required
+def create_medical_record(request, appointment_id):
+    appointment = get_object_or_404(Appointment, id=appointment_id)
+
+    if hasattr(appointment, 'medical_record'):
+        return redirect('appointments:view_medical_record', appointment_id=appointment.id)
+
+    if request.method == 'POST':
+        form = MedicalRecordForm(request.POST)
+        if form.is_valid():
+            record = form.save(commit=False)
+            record.appointment = appointment
+            record.save()
+            return redirect('appointments:view_medical_record', appointment_id=appointment.id)
+    else:
+        form = MedicalRecordForm()
+
+    return render(request, 'appointments/medical_record_form.html', {'form': form, 'appointment': appointment})
+
+@login_required
+def view_medical_record(request, appointment_id):
+    appointment = get_object_or_404(Appointment, id=appointment_id)
+    record = get_object_or_404(MedicalRecord, appointment=appointment)
+    return render(request, 'appointments/medical_record_detail.html', {'record': record, 'appointment': appointment})
+
+@login_required
+def edit_medical_record(request, appointment_id):
+    appointment = get_object_or_404(Appointment, id=appointment_id)
+    medical_record = get_object_or_404(MedicalRecord, appointment=appointment)
+    
+    if request.method == 'POST':
+        form = MedicalRecordForm(request.POST, instance=medical_record)
+        if form.is_valid():
+            form.save()
+            return redirect('appointments:view_medical_record', appointment_id=appointment.id)
+    else:
+        form = MedicalRecordForm(instance=medical_record)
+    
+    return render(request, 'appointments/medical_record_edit.html', {'form': form, 'appointment': appointment})
+
+@login_required
+def delete_medical_record(request, appointment_id):
+    appointment = get_object_or_404(Appointment, id=appointment_id)
+    medical_record = get_object_or_404(MedicalRecord, appointment=appointment)
+
+    if request.method == 'POST':
+        medical_record.delete()
+        messages.success(request, f'Medical record for {appointment.pet.name} was successfully deleted.')
+        return redirect('appointments:view_medical_record', appointment_id=appointment.id)
+    
+    return render(request, 'appointments/medical_record_confirm_delete.html', {'medical_record': medical_record})

@@ -29,4 +29,42 @@
         </div>
     </div>
 </div>
+<div class="container mt-4">
+    <div class="card shadow">
+        <div class="card-header bg-secondary text-white">
+            <h5 class="mb-0">📋 Medical Record</h5>
+        </div>
+        <div class="card-body">
+            {% if appointments %}
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Date</th>
+                            <th>Veterinarian</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for appointment in appointments %}
+                        <tr>
+                            <td>{{ appointment.date|date:"d M Y - H:i" }}</td>
+                            <td>{{ appointment.veterinarian.name }}</td>
+                            <td>
+                                {% if appointment.medical_record %}
+                                    <a href="{% url 'appointments:view_medical_record' appointment.id %}" class="btn btn-sm btn-info">👁 See Record</a>
+                                {% else %}
+                                    <a href="{% url 'appointments:create_medical_record' appointment.id %}" class="btn btn-sm btn-warning">➕ Add Record</a>
+                                {% endif %}
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            {% else %}
+                <p class="text-muted">No appointment was registered for this pet.</p>
+            {% endif %}
+        </div>
+    </div>
+</div>
+
 {% endblock %}
