@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% block title %}Edit Medical Record{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <h2>Edit Medical Record for {{ appointment.pet.name }} - {{ appointment.date|date:"d M Y" }}</h2>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="btn btn-success">Save Changes</button>
+        <a href="{% url 'appointments:view_medical_record' appointment.id %}" class="btn btn-secondary">Cancel</a>
+    </form>
+</div>
+{% endblock %}
