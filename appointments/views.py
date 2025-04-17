@@ -1,5 +1,9 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
+from django.contrib import messages
+from django.template.loader import render_to_string
+from weasyprint import HTML
+from django.http import HttpResponse
 from .models import Appointment
 from .models import MedicalRecord
 from .forms import AppointmentForm
@@ -111,3 +115,20 @@ def delete_medical_record(request, appointment_id):
         return redirect('appointments:view_medical_record', appointment_id=appointment.id)
     
     return render(request, 'appointments/medical_record_confirm_delete.html', {'medical_record': medical_record})
+
+@login_required
+def view_prescription(request, record_id):
+    record = get_object_or_404(MedicalRecord, pk=record_id)
+    appointment = record.appointment  # Obtém o appointment relacionado ao medical record
+    return render(request, 'appointments/prescription.html', {'record': record, 'appointment': appointment})
+
+@login_required
+def generate_prescription_pdf(request, record_id):
+    record = get_object_or_404(MedicalRecord, pk=record_id)
+    appointment = record.appointment  # Obtém o appointment relacionado ao medical record
+    html = render(request, 'appointments/prescription.html', {'record': record, 'appointment': appointment}).content.decode('utf-8')
+    pdf_file = HTML(string=html).write_pdf()
+    
+    response = HttpResponse(pdf_file, content_type='application/pdf')
+    response['Content-Disposition'] = f'filename=prescription_{record_id}.pdf'
+    return response
