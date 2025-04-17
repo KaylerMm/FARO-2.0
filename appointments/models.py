@@ -18,7 +18,10 @@ class MedicalRecord(models.Model):
     appointment = models.OneToOneField(Appointment, on_delete=models.CASCADE, related_name='medical_record')
     description = models.TextField(verbose_name='Appointment Description')
     medications = models.TextField(blank=True, verbose_name='Medicine Prescribed')
+    instructions = models.TextField() 
+    notes = models.TextField(blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return f"Histórico de {self.appointment.pet.name} em {self.appointment.date.strftime('%d/%m/%Y')}"
+        return f"{self.appointment.pet.name}'s recrod on {self.appointment.date.strftime('%d/%m/%Y')}"
+

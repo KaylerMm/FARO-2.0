@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <style>
+        @page {
+            size: A4;
+            margin: 2cm;
+        }
+
+        body {
+            font-family: 'Helvetica', 'Arial', sans-serif;
+            font-size: 14px;
+            line-height: 1.6;
+            color: #333;
+        }
+
+        h1 {
+            text-align: center;
+            color: #2a7ae2;
+            margin-bottom: 10px;
+        }
+
+        hr {
+            border: none;
+            border-top: 2px solid #2a7ae2;
+            margin: 20px 0;
+        }
+
+        .section {
+            margin-bottom: 25px;
+        }
+
+        .label {
+            font-weight: bold;
+            color: #2a7ae2;
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 12px;
+            color: #888;
+            margin-bottom: 20px;
+        }
+
+        .header img {
+            width: 120px;
+        }
+
+        .box {
+            border: 1px solid #ccc;
+            padding: 15px;
+            border-radius: 8px;
+            background-color: #f9f9f9;
+        }
+
+        .signature {
+            margin-top: 50px;
+        }
+
+        .signature-line {
+            margin-top: 40px;
+            border-top: 1px solid #000;
+            width: 250px;
+        }
+
+        .footer {
+            text-align: center;
+            font-size: 11px;
+            color: #999;
+            margin-top: 40px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="header">
+        <img src="logo_url_or_path_here" alt="Clinic Logo">
+        <div>
+            <p><strong>FARO Veterinary Clinic</strong></p>
+            <p><small>CRM: {{ record.appointment.veterinarian.crm }}</small></p>
+        </div>
+    </div>
+
+    <h1>Veterinary Prescription</h1>
+
+    <hr>
+
+    <div class="section box">
+        <p><span class="label">Pet:</span> {{ record.appointment.pet.name }} ({{ record.appointment.pet.species }} - {{ record.appointment.pet.breed }})</p>
+        <p><span class="label">Owner:</span> {{ record.appointment.pet.customer.name }}</p>
+        <p><span class="label">Veterinarian:</span> Dr. {{ record.appointment.veterinarian.name }} , CRMV {{ record.appointment.veterinarian.crmv }}</p>
+        <p><span class="label">Date:</span> {{ record.created_at|date:"d/m/Y - H:i" }}</p>
+    </div>
+
+    <div class="section">
+        <h3 class="label">Prescribed Medications</h3>
+        <div class="box">
+            <p>{{ record.medications }}</p>
+        </div>
+    </div>
+
+    <div class="section">
+        <h3 class="label">Instructions</h3>
+        <div class="box">
+            <p>{{ record.instructions }}</p>
+        </div>
+    </div>
+
+    {% if record.notes %}
+    <div class="section">
+        <h3 class="label">Additional Notes</h3>
+        <div class="box">
+            <p>{{ record.notes }}</p>
+        </div>
+    </div>
+    {% endif %}
+
+    <div class="signature">
+        <p><span class="label">Signature:</span></p>
+        <div class="signature-line"></div>
+        <p>Dr. {{ record.appointment.veterinarian.name }}</p>
+    </div>
+
+    <div class="footer">
+        <p>This prescription is valid only under the supervision of the attending veterinarian.</p>
+    </div>
+
+</body>
+</html>

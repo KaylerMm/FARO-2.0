@@ -12,5 +12,7 @@ urlpatterns = [
     path('<int:appointment_id>/medical-record/', views.view_medical_record, name='view_medical_record'),
     path('<int:appointment_id>/medical-record/create/', views.create_medical_record, name='create_medical_record'),
     path('<int:appointment_id>/medical_record_edit/', views.edit_medical_record, name='edit_medical_record'),
-    path('appointments/<int:appointment_id>/medical_record_delete/', views.delete_medical_record, name='delete_medical_record'),
+    path('<int:appointment_id>/medical_record_delete/', views.delete_medical_record, name='delete_medical_record'),
+    path('record/<int:record_id>/view/', views.view_prescription, name='view_prescription'),
+    path('record/<int:record_id>/pdf/', views.generate_prescription_pdf, name='generate_prescription_pdf'),
 ]

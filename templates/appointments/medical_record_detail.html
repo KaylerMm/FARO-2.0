@@ -8,9 +8,12 @@
     <p><strong>Medications:</strong> {{ record.medications }}</p>
 
     <div class="mt-4">
-        <a href="{% url 'appointments:edit_medical_record' record.pk %}" class="btn btn-warning">✏️ Edit Medical Record</a>
+        <a href="{% url 'appointments:edit_medical_record' appointment.id %}" class="btn btn-warning">✏️ Edit Medical Record</a>
         <a href="{% url 'appointments:delete_medical_record' record.pk %}" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete this medical record?')">🗑️ Delete Medical Record</a>
     </div>
+
+    <a href="{% url 'appointments:view_prescription' record.id %}" class="btn btn-success mt-3">👁 View Prescription</a>
+    <a href="{% url 'appointments:generate_prescription_pdf' record.id %}" class="btn btn-success mt-3">📄 Generate PDF</a>
 
     <a href="{% url 'appointments:appointment_list' %}" class="btn btn-primary mt-3">Go Back</a>
 </div>
